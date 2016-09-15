@@ -30,7 +30,7 @@ def barx_df():
 
     # TODO: points per game & cost per point metrics, rank by ponts per game
     df["pts/g"] = df["Pts."]/df["Pld."]
-    df['cost/p'] = df["Value"]/df["Pts."]/1000000
+    df['cost/p/game'] = df["Value"]/df["pts/g"]/1000000
 
     # TODO: fair-value
     # add fair value metric by comparing valuation quantile to
@@ -46,10 +46,23 @@ def barx_df():
     print df[(df['Pos.']=="S") & (df['Pld.'] >= math.floor(df['Pld.'].mean()))].sort_values(by=("pts/g"), ascending=False).head()
     '''
 
+
+    import matplotlib
+    import matplotlib.pyplot as plt
+
+    plt.style.use('ggplot')
+    df.plot.scatter(x='pts/g',y='cost/p/game', marker=".")
+
+    for i in range(len(df)):
+        plt.annotate(df['Player'][i], xy=(df['pts/g'][i],df['cost/p/game'][i]), xytext=(df['pts/g'][i],df['cost/p/game'][i]))
+
+    plt.show()
+
     return df
 
 if __name__ == "__main__":
     barx = barx_df()
+    barx = barx[["Player","Club","Value","pts/g"]]
 
     print "\nBEST------\n", barx.head(10)
     print "\nWORST------\n", barx.tail(10)
