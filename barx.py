@@ -1,6 +1,10 @@
 '''
 # Module that will create a pandas dataframe object with player statistics
 '''
+# TODO: pts/g needs to be a moving average that is statistically
+# relevant otherwise we'll ust end end with stale players or somethign
+# too close to 'pts' metric
+
 
 def barx_df():
     import pandas as pd
