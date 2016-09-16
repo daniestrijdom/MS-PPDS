@@ -31,5 +31,5 @@ print df.head()
 #
 # .. your code here ..
 
-
+parallel_coordinates(df, 'wheat_type',alpha=0.4)
 plt.show()
