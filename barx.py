@@ -62,7 +62,7 @@ def barx_df():
 
 if __name__ == "__main__":
     barx = barx_df()
-    barx = barx[["Player","Club","Value","pts/g"]]
+    barx = barx[["Pos.","Player","Club","Value","pts/g"]]
 
-    print "\nBEST------\n", barx.head(10)
-    print "\nWORST------\n", barx.tail(10)
+    print "\nBEST------\n", barx.head(30)
+    #print "\nWORST------\n", barx.tail(10)
