@@ -68,5 +68,5 @@ if __name__ == "__main__":
     barx = barx_df()
     barx = barx[["Pos.","Player","Club","Value","pts/g"]]
 
-    print "\nBEST------\n", barx.head(30)
+    print "\nBEST------\n", barx.head()
     #print "\nWORST------\n", barx.tail(10)
