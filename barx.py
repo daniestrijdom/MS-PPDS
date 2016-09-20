@@ -69,4 +69,4 @@ if __name__ == "__main__":
     barx = barx[["Pos.","Player","Club","Value","pts/g"]]
 
     print "\nBEST------\n", barx.head()
-    #print "\nWORST------\n", barx.tail(10)
+    print "\nWORST------\n", barx.tail(10)
