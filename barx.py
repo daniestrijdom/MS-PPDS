@@ -68,5 +68,19 @@ if __name__ == "__main__":
     barx = barx_df()
     barx = barx[["Pos.","Player","Club","Value","pts/g"]]
 
-    print "\nBEST------\n", barx.head()
-    print "\nWORST------\n", barx.tail(10)
+    def startup():
+
+        rank_type = raw_input("(b)est or (worst)? ")
+        rank_length = input("how many? ")
+        rank_position = raw_input("(k)eepers, (d)efenders, (m)idfielders or (s)trikers? ")
+
+        if rank_type == 'b':
+            print "\nRESULT------\n", barx[barx['Pos.']==rank_position.upper()].head(rank_length)
+        elif rank_type == 'w':
+            print "\nRESULT------\n", barx[barx['Pos.']==rank_position.upper()].tail(rank_length)
+        else:
+            print '\nrepeat selection\n'
+            startup()
+
+
+    startup()

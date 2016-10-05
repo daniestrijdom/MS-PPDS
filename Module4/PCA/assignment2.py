@@ -8,7 +8,7 @@ matplotlib.style.use('ggplot')
 
 
 # Do * NOT * alter this line, until instructed!
-scaleFeatures = False
+scaleFeatures = True
 
 # TODO: Load up the dataset and remove any and all
 # Rows that have a nan. You should be a pro at this
@@ -19,7 +19,6 @@ scaleFeatures = False
 df = pd.read_csv('Datasets/kidney_disease.csv')
 df = df.dropna(axis=0)
 df = df.reset_index(drop=True)
-print df.head()
 
 # Create some color coded labels; the actual label feature
 # will be removed prior to executing PCA, since it's unsupervised.
@@ -32,7 +31,7 @@ labels = ['red' if i=='ckd' else 'green' for i in df.classification]
 #
 # .. your code here ..
 
-
+df1 = df[['bgr','wc','rc']]
 
 # TODO: Print out and check your dataframe's dtypes. You'll probably
 # want to call 'exit()' after you print it out so you can stop the
@@ -46,7 +45,11 @@ labels = ['red' if i=='ckd' else 'green' for i in df.classification]
 # an appropriate command to coerce these features into the right type.
 #
 # .. your code here ..
+df1.is_copy = False
 
+
+df1['wc'] = pd.to_numeric(df1['wc'], errors=coerce)
+df1['rc'] = pd.to_numeric(df1['rc'], errors=coerce)
 
 
 # TODO: PCA Operates based on variance. The variable with the greatest
@@ -60,13 +63,21 @@ labels = ['red' if i=='ckd' else 'green' for i in df.classification]
 #
 # .. your code here ..
 
+print df1.var()
+print df1.describe()
+'''
+wc, bgr, rc
 
+'''
 
 # TODO: This method assumes your dataframe is called df. If it isn't,
 # make the appropriate changes. Don't alter the code in scaleFeatures()
 # just yet though!
 #
 # .. your code adjustment here ..
+
+df = df1
+
 if scaleFeatures: df = helper.scaleFeatures(df)
 
 
@@ -76,6 +87,12 @@ if scaleFeatures: df = helper.scaleFeatures(df)
 # and that the results of your transformation are saved in 'T'.
 #
 # .. your code here ..
+
+from sklearn.decomposition import PCA
+
+pca  = PCA(n_components=2)
+
+T = pca.fit_transform(df)
 
 
 # Plot the transformed data as a scatter plot. Recall that transforming
@@ -88,6 +105,7 @@ if scaleFeatures: df = helper.scaleFeatures(df)
 #
 # Since we transformed via PCA, we no longer have column names. We know we
 # are in P.C. space, so we'll just define the coordinates accordingly:
+
 ax = helper.drawVectors(T, pca.components_, df.columns.values, plt, scaleFeatures)
 T = pd.DataFrame(T)
 T.columns = ['component1', 'component2']
